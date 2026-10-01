@@ -1,0 +1,245 @@
+/* =========================================================
+   1. VARIABLES Y BASE
+   ========================================================= */
+:root {
+  --verde: #2e7d32;
+  --verde-oscuro: #14391b;
+  --verde-claro: #8bd450;
+  --crema: #fff8e1;
+  --oro: #ffd54f;
+  --rojo: #e53935;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: "Segoe UI", Tahoma, sans-serif;
+  background: radial-gradient(circle at top, #2f6b3a, #0e2a15);
+  color: var(--crema);
+  min-height: 100vh;
+  padding: 12px;
+}
+
+.oculto { display: none !important; }
+
+/* =========================================================
+   2. TÍTULO Y CONTENEDOR
+   ========================================================= */
+.titulo { text-align: center; margin-bottom: 10px; }
+.titulo h1 { font-size: clamp(1.4rem, 4vw, 2.4rem); text-shadow: 0 3px 0 #0a2010; }
+
+.app { max-width: 960px; margin: 0 auto; }
+
+.aviso-movil {
+  display: none;
+  text-align: center;
+  font-size: .85rem;
+  background: rgba(255, 213, 79, .15);
+  border-radius: 8px;
+  padding: 6px;
+  margin-bottom: 8px;
+}
+
+/* =========================================================
+   3. PANEL SUPERIOR (HUD)
+   ========================================================= */
+.hud {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.stat {
+  background: rgba(0, 0, 0, .35);
+  border: 2px solid var(--verde);
+  border-radius: 10px;
+  padding: 6px 10px;
+  text-align: center;
+}
+.stat span { display: block; font-size: .75rem; opacity: .85; }
+.stat b { font-size: 1.2rem; color: var(--oro); word-break: break-word; }
+
+/* Barra del jefe */
+.jefe-barra { margin-bottom: 8px; text-align: center; font-weight: bold; }
+.jefe-fondo {
+  height: 16px;
+  background: #3b0d0d;
+  border: 2px solid #ff5252;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+.jefe-vida { height: 100%; width: 100%; background: linear-gradient(#ff5252, #b71c1c); transition: width .15s; }
+
+/* =========================================================
+   4. SELECTOR DE GUARDIANES
+   ========================================================= */
+.selector {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 4px 2px 8px;
+}
+
+.guardian-btn {
+  flex: 1 0 96px;
+  background: linear-gradient(#3e8e41, #276329);
+  color: var(--crema);
+  border: 3px solid #1b4d1e;
+  border-radius: 12px;
+  padding: 6px 4px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  font-family: inherit;
+  touch-action: manipulation;
+}
+.guardian-btn .g-emoji { font-size: 1.8rem; }
+.guardian-btn .g-nombre { font-size: .75rem; font-weight: bold; }
+.guardian-btn .g-costo { font-size: .8rem; color: var(--oro); }
+.guardian-btn.activo { border-color: var(--oro); box-shadow: 0 0 12px var(--oro); transform: translateY(-2px); }
+.guardian-btn.sin-energia { opacity: .45; }
+
+.ayuda { font-size: .85rem; text-align: center; margin-bottom: 8px; min-height: 1.3em; }
+
+/* =========================================================
+   5. TABLERO
+   ========================================================= */
+.tablero-wrap { position: relative; }
+
+#tablero {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 4px solid #0a2010;
+  border-radius: 12px;
+  background: #4f9a3a;
+  touch-action: manipulation;
+  user-select: none;
+}
+
+.anuncio {
+  position: absolute;
+  top: 12%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, .7);
+  border: 2px solid var(--oro);
+  border-radius: 12px;
+  padding: 8px 18px;
+  font-weight: bold;
+  font-size: clamp(.9rem, 3vw, 1.5rem);
+  text-align: center;
+  pointer-events: none;
+  opacity: 0;
+  white-space: nowrap;
+}
+.anuncio.mostrar { animation: anuncio 2.8s forwards; }
+
+@keyframes anuncio {
+  0%   { opacity: 0; transform: translateX(-50%) scale(.8); }
+  15%  { opacity: 1; transform: translateX(-50%) scale(1); }
+  80%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.controles { display: flex; justify-content: center; gap: 10px; margin: 10px 0; }
+
+/* =========================================================
+   6. BOTONES
+   ========================================================= */
+.btn {
+  background: linear-gradient(#ffd54f, #f9a825);
+  color: #3b2a00;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 16px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  font-family: inherit;
+  touch-action: manipulation;
+}
+.btn:hover { filter: brightness(1.08); }
+.btn.grande { font-size: 1.2rem; padding: 12px 22px; }
+.btn.peligro { background: linear-gradient(#ef5350, #c62828); color: #fff; }
+
+/* =========================================================
+   7. TABLA DE JUGADORES
+   ========================================================= */
+.ranking {
+  background: rgba(0, 0, 0, .35);
+  border: 2px solid var(--verde);
+  border-radius: 14px;
+  padding: 14px;
+  margin-top: 14px;
+}
+.ranking h2 { text-align: center; margin-bottom: 6px; }
+
+.estado-bd { text-align: center; font-size: .85rem; margin-bottom: 8px; min-height: 1.2em; }
+
+.tabla-wrap { overflow-x: auto; }
+
+table { width: 100%; border-collapse: collapse; min-width: 480px; }
+th, td { padding: 8px; text-align: left; border-bottom: 1px solid rgba(255, 255, 255, .15); font-size: .9rem; }
+th { background: var(--verde); }
+td:nth-child(3), td:nth-child(4), th:nth-child(3), th:nth-child(4) { text-align: right; }
+tbody tr:nth-child(1) td:first-child { color: var(--oro); font-weight: bold; }
+
+.ranking-botones { display: flex; justify-content: center; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+
+/* =========================================================
+   8. PANTALLAS SUPERPUESTAS (inicio, game over, modal)
+   ========================================================= */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(8, 30, 14, .92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  overflow-y: auto;
+  z-index: 50;
+}
+
+.caja {
+  background: #1d4d27;
+  border: 3px solid var(--oro);
+  border-radius: 16px;
+  padding: 22px;
+  width: 100%;
+  max-width: 420px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.caja h2 { font-size: 1.8rem; }
+.caja h2.rojo { color: #ff5252; letter-spacing: 2px; }
+
+.caja input {
+  padding: 12px;
+  font-size: 1.1rem;
+  border-radius: 10px;
+  border: 3px solid var(--verde-claro);
+  text-align: center;
+  font-family: inherit;
+}
+.error { color: #ff8a80; min-height: 1.2em; font-size: .9rem; }
+
+/* =========================================================
+   9. RESPONSIVE
+   ========================================================= */
+@media (max-width: 700px) and (orientation: portrait) {
+  .aviso-movil { display: block; }
+}
+
+@media (max-width: 600px) {
+  body { padding: 8px; }
+  .stat b { font-size: 1rem; }
+  .guardian-btn { flex: 1 0 84px; }
+}

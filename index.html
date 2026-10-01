@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guardianes del Jardín</title>
+  <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+  <!-- ================= TÍTULO ================= -->
+  <header class="titulo">
+    <h1>🌿 Guardianes del Jardín</h1>
+  </header>
+
+  <main class="app">
+
+    <p class="aviso-movil">💡 En celular se juega mejor con el teléfono girado (horizontal).</p>
+
+    <!-- ================= PANEL SUPERIOR (HUD) ================= -->
+    <section class="hud">
+      <div class="stat"><span>👤 Jugador</span><b id="hudNombre">-</b></div>
+      <div class="stat"><span>⭐ Puntos</span><b id="hudPuntos">0</b></div>
+      <div class="stat"><span>🌊 Nivel</span><b id="hudNivel">1</b></div>
+      <div class="stat"><span>⚡ Energía</span><b id="hudEnergia">0</b></div>
+      <div class="stat"><span>💀 Derrotados</span><b id="hudDerrotados">0</b></div>
+    </section>
+
+    <!-- Barra de vida del jefe -->
+    <div id="jefeBarra" class="jefe-barra oculto">
+      <span>🤖 El Gigante de Acero</span>
+      <div class="jefe-fondo"><div id="jefeVida" class="jefe-vida"></div></div>
+    </div>
+
+    <!-- ================= SELECTOR DE GUARDIANES (lo crea el JS) ================= -->
+    <section id="selector" class="selector"></section>
+    <p id="ayudaGuardian" class="ayuda">Elige un guardián y toca una casilla del jardín. Toca las ⚡ para juntar energía.</p>
+
+    <!-- ================= TABLERO ================= -->
+    <div class="tablero-wrap">
+      <canvas id="tablero" width="940" height="500"></canvas>
+      <div id="anuncio" class="anuncio"></div>
+    </div>
+
+    <div class="controles">
+      <button id="btnPausa" class="btn">⏸️ Pausa</button>
+      <button id="btnSonido" class="btn">🔊 Sonido</button>
+    </div>
+
+    <!-- ================= TABLA DE JUGADORES ================= -->
+    <section class="ranking">
+      <h2>🏆 Tabla de jugadores</h2>
+      <p id="estadoBD" class="estado-bd"></p>
+      <div class="tabla-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Posición</th>
+              <th>Jugador</th>
+              <th>Puntos</th>
+              <th>Nivel</th>
+              <th>Premio</th>
+              <th>Fecha</th>
+            </tr>
+          </thead>
+          <tbody id="tablaCuerpo"></tbody>
+        </table>
+      </div>
+      <div class="ranking-botones">
+        <button id="btnActualizar" class="btn">🔄 Actualizar tabla</button>
+        <button id="btnBorrar" class="btn peligro">🗑️ Borrar historial</button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= PANTALLA DE INICIO ================= -->
+  <div id="pantallaInicio" class="overlay">
+    <div class="caja">
+      <h2>🌿 Guardianes del Jardín</h2>
+      <p>Protege tu jardín de las criaturas. ¡Cada enemigo derrotado vale <b>+10 puntos</b>!</p>
+      <input id="inputNombre" type="text" maxlength="15" placeholder="Escribe tu nombre" autocomplete="off">
+      <p id="errorNombre" class="error"></p>
+      <button id="btnComenzar" class="btn grande">▶️ Comenzar</button>
+    </div>
+  </div>
+
+  <!-- ================= PANTALLA GAME OVER ================= -->
+  <div id="pantallaFin" class="overlay oculto">
+    <div class="caja">
+      <h2 class="rojo">GAME OVER</h2>
+      <p><b>Jugador:</b> <span id="finJugador"></span></p>
+      <p><b>Puntos obtenidos:</b> <span id="finPuntos"></span></p>
+      <p><b>Enemigos derrotados:</b> <span id="finDerrotados"></span></p>
+      <p><b>Nivel alcanzado:</b> <span id="finNivel"></span></p>
+      <p><b>Premio:</b> <span id="finPremio"></span></p>
+      <p id="finEstado" class="estado-bd"></p>
+      <button id="btnJugarOtra" class="btn grande">🔄 Jugar nuevamente</button>
+      <button id="btnCambiarNombre" class="btn">✏️ Cambiar nombre</button>
+    </div>
+  </div>
+
+  <!-- ================= CONFIRMACIÓN BORRAR HISTORIAL ================= -->
+  <div id="modalBorrar" class="overlay oculto">
+    <div class="caja">
+      <h2>🗑️ Borrar historial</h2>
+      <p>¿Deseas eliminar todo el historial de partidas?</p>
+      <button id="btnCancelarBorrar" class="btn">Cancelar</button>
+      <button id="btnConfirmarBorrar" class="btn peligro">Eliminar historial</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
